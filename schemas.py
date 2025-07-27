@@ -1,22 +1,26 @@
+from typing import Optional
 from pydantic import BaseModel
+
 
 
 class TodoCreate(BaseModel):
     title: str
-    description: str = None
-
-
-class TodoUpdate(BaseModel):
-    title: str = None
-    description: str = None
-    completed: bool = None
+    description: Optional[str] = None
+    completed: bool = False
 
 
 class TodoResponse(BaseModel):
     id: int
     title: str
-    description: str = None
+    description: Optional[str] = None
     completed: bool
 
     class Config:
         orm_mode = True
+
+# Schema para atualização parcial
+from typing import Any
+class TodoUpdate(BaseModel):
+    title: Optional[str] = None
+    description: Optional[str] = None
+    completed: Optional[bool] = None
